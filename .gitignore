@@ -1,0 +1,8 @@
+*.swp
+*~
+*.pyc
+*.sqlite3
+uwsgi.ini
+uwsgi.log
+logs/*
+
