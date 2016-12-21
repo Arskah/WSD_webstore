@@ -2,8 +2,8 @@
 
 ## Team
 424974 Aarni Halinen
-<Dev2>
-<Dev3>
+529714 Nathan Marcalle
+529837 Lassi Mölsä
 
 ## Goal
 
@@ -15,7 +15,7 @@ Goal is to create online game store for Javascript games, with support for playe
 
 ### Libraries
 - Bootstrap
-- AngularJS
+- AngularJS Framework if needed for 
 - jQuery
 
 ### Features
@@ -33,25 +33,24 @@ Goal is to create online game store for Javascript games, with support for playe
         - Category (Steam-like), search functionality
         - Shopping cart!
     - Inventory
-        - Catalog, play button(s, load/save functionality?) -> game window and starting game
+        - Catalog, play button(s, load/save functionality) -> game window and starting game
     - Play
-    - Save/Load (extra)
 
 - Basic developer functionalities (mandatory 100-200 points):
     - Adding game
     - Statistics (sales)
-    - User specific inventory (secure!)
+    - Security is priority
 
 - Game/service interaction (mandatory 100-200 points):
     - Messaging system
-    - Should be made more secure?
+    - By default not secure
 - Mobile friendly (Bootstrap)
-- 3rd party login?
-- RESTful API?
+- 3rd party login to be added
+- RESTful API as well
  
 ### Frontend structure
 - Catalog, inventory, gaming and developer sites
-- 
+- Filters and other minor features to be done, low priority
 
 ### Backend structure
 - One app
@@ -67,7 +66,6 @@ Goal is to create online game store for Javascript games, with support for playe
     - Games
         - Description
         - Link to developer
-    - 
 
 ## Schedule and working plan
 
@@ -82,17 +80,19 @@ Goal is to create online game store for Javascript games, with support for playe
         - Bootstrap grid system
         - Simple Catalog, gaming, inventory "pages"
     - Backend:
-        - 
+        - Login, basic functionality
 - Week 2
-    - 
+    - Frontend features, also filters and extra, if all going well for project
 - Week 3
-    - 
+    - Main feautres for backend done (inventory, catalogs etc.)
 - Week 4
-    - 
+    - Security for backend
+    - Final features for backend done
 - Week 5
-    - 
+    - Focus on frontend and polishing backend
+    - All features' frontend done
 - Week 6
-    - Final features, polishing
+    - Polishing
 - Final submission 19.2
 
 ## Testing and security
