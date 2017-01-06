@@ -8,7 +8,6 @@ from django.db.models.signals import post_save
 
 class StoreUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #created = models.DateTimeField(default=timezone.now,). user.date_joined can be used as created.
     publisher = models.BooleanField(default=False,)  # has own games for sale? -> if more info needed from devs we can create own model
     verified = models.BooleanField(default=False,) # check if the user has verified the account through email.
 

@@ -1,0 +1,17 @@
+<!---For loop and br tags should be removed when styling is added! -->
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+<h1>Register</h1>
+<form method="post" >
+    {% csrf_token %}
+    {% for field in form %}
+        {{ field.label }}
+        {{ field }}
+      </br>
+    {% endfor %}
+    </br>
+    <button type="submit"> Submit </button>
+</form>
+{% endblock %}
