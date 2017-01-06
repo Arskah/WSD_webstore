@@ -9,18 +9,16 @@ from forms import StoreUserCreateForm
 def main_index(request, *args, **kwargs):
     return redirect("http://google.fi/")
 
-#Change return value when http method is post
 @require_http_methods(["GET","POST"])
 def  register_view(request, *args, **kwargs):
-    if request.method == "POST":
-        form = StoreUserCreateForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            return render(request, "registration/login.html")
-        else:
-            return render(request, "registration/registrationForm.html", {'error' : "Something went wrong"})
-    else:
-        return render(request, "registration/registrationForm.html", {'form' : StoreUserCreateForm})
+    form = StoreUserCreateForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect("http://google.fi/")
+    context = {
+        "form" : form
+    }
+    return render(request, "registration/registrationForm.html", context)
 
 
 # @require_http_methods(["GET", "POST"])
