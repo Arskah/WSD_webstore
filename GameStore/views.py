@@ -2,12 +2,14 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.http import require_http_methods
-from forms import StoreUserCreateForm
+from .forms import StoreUserCreateForm
 #from models import User
+from .models import Game
+from .models import UserInventory
 
 @require_http_methods(["GET"])
 def main_index(request, *args, **kwargs):
-    return redirect("http://google.fi/")
+    return render(request, "main.html")
 
 @require_http_methods(["GET","POST"])
 def  register_view(request, *args, **kwargs):
@@ -20,6 +22,12 @@ def  register_view(request, *args, **kwargs):
     }
     return render(request, "registration/registrationForm.html", context)
 
+def inventory_view(request, *args, **kwargs):
+  if request.user.is_authenticated():
+    inventoryGames = UserInventory.objects.get(pk=request.user).games.objects.all()
+    return render(request, "inventory.html")
+  else:
+    return redirect("registeration/login.html")
 
 # @require_http_methods(["GET", "POST"])
 # def login_view(request, *args, **kwargs):

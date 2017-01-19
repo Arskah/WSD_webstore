@@ -60,5 +60,5 @@ class Game(models.Model):
                 return True
 
 class UserInventory():
-    user = models.OneToOneField(StoreUser, on_delete=models.CASCADE, primary_key=True,)
+    user = models.OneToOneField(StoreUser, on_delete=models.CASCADE, related_name='inventory', primary_key=True,)
     games = models.ForeignKey(Game,)

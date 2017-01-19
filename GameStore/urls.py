@@ -16,8 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from GameStore.views import main_index
-from GameStore.views import register_view
+from .views import main_index
+from .views import register_view
+from .views import inventory_view
 #from GameStore.views import login_view
 #from GameStore.views import logout_view
 #from views import api
@@ -28,6 +29,7 @@ urlpatterns = [
   url(r'^login/$', auth_views.login, name='login'),
   url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
   url(r'^registration/$', register_view, name='registration'),
+  url(r'^inventory/$', inventory_view, name='inventory'),
   #url(r'^login$', login_view),
   #url(r'^logout$', logout_view),
   #url(r'^api', api),

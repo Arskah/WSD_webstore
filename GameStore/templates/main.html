@@ -6,10 +6,15 @@
   <meta name="description" content="Game store for JS games">
   <meta name="author" content="3 jäbää">
   <title>GameStore</title>
-
   {%load staticfiles %}
 </head>
 <body>
-
+  <div id="navbar">
+    
+  </div>
+  <h1>{% block title %}{% endblock %}</h1>
+  <div id="content">
+    {% block content %}{% endblock content %}  
+  </div>
 </body>
 </html>

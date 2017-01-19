@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div>
+  <table>
+  <thead>
+    <tr class="ui-widget-header">
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in userInventory.games.objects.all() %}
+      <tr>
+        <td> {{ item.title }} </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endblock content %}
