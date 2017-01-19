@@ -2,8 +2,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.http import require_http_methods
-from .forms import StoreUserCreateForm
-#from models import User
+from .forms import StoreUserCreationForm
 from .models import Game
 from .models import UserInventory
 
@@ -12,11 +11,11 @@ def main_index(request, *args, **kwargs):
     return render(request, "main.html")
 
 @require_http_methods(["GET","POST"])
-def  register_view(request, *args, **kwargs):
-    form = StoreUserCreateForm(request.POST or None)
+def register_view(request, *args, **kwargs):
+    form = StoreUserCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect("http://google.fi/")
+        return redirect("/")
     context = {
         "form" : form
     }
