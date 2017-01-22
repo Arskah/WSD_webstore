@@ -28,6 +28,15 @@ def inventory_view(request, *args, **kwargs):
   else:
     return redirect("registeration/login.html")
 
+def shop_view(request, *args, **kwargs):
+    allGames = Game.objects.all()
+    return render(request, "shop.html")
+
+# if request.POST["next"] is Not "":
+#     HttpResponseRedirect(request.POST["next"])
+# else:
+#     HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
+
 # @require_http_methods(["GET", "POST"])
 # def login_view(request, *args, **kwargs):
 #     if request.method == "POST":
