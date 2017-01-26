@@ -17,12 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from .views import main_index
-from .views import shop_view
-from .views import register_view
-from .views import inventory_view
-#from GameStore.views import login_view
-#from GameStore.views import logout_view
-#from views import api
+from store.views import shop_view
+from users.views import register_view
+from store.views import inventory_view
+#from payments.views import 
 
 urlpatterns = [
   url(r'^$', shop_view),

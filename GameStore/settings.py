@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'GameStore',
+    'store',
+    'users',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -101,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "GameStore.StoreUser"
+AUTH_USER_MODEL = "users.StoreUser"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

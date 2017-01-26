@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% block title %}Shop{% endblock title %}
+{% block content %}
+<div>
+  <table>
+  <thead>
+    <tr class="ui-widget-header">      
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in Games %}
+      <tr>
+        <td> {{ item.title }} </td>
+        <td> {{ item.price }} </td>
+        <td> {{ item.rating }} </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endblock content %}
