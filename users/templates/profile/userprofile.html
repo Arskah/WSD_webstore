@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+
+{% block title %} My Profile {% endblock %}
+
+{% block content %}
+<div id ="profile_body">
+  {% if user.is_authenticated  %}
+
+<h1>{{storeuser.username}}</h1>
+<p>Email: {{storeuser.email}}</p>
+<p> Firstname : {{storeuser.first_name}}  </p>
+<p> Lastname : {{storeuser.last_name}} </p>
+
+{% if storeuser.publisher %}
+<p> Registered as publisher </p>
+{% else %}
+<p> You are currently not registred as a publisher </p>
+{% endif %}
+
+<button><a href = "{% url 'editprofile' %}" >Edit profile</a></button>
+
+{% else %}
+
+<h1>Not logged in  !</h1>
+<a href=" {% url  'login' %}">Log in here.</a>
+
+{% endif %}
+</div>
+{% endblock %}
