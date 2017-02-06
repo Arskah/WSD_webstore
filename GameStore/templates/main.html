@@ -15,14 +15,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
   <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <!-- CSS Files -->
+  <link rel="stylesheet" type="text/css" href="{% static 'GameStore/primary.css'%}?ran=123" />
+
 </head>
 <body>
-  <div id="navbar">
-    
+
+<div id ="container">
+  <div id = "header">
+    <h1>{% block title %}{% endblock %}</h1>
   </div>
-  <h1>{% block title %}{% endblock %}</h1>
+
   <div id="content">
-    {% block content %}{% endblock content %}  
+    {% block content %}{% endblock content %}
   </div>
+
+  <div id="navbar">
+    <ul>
+      <li><a href ="{% url 'shop' %}"> Store </a></li>
+      <li><a href ="{% url 'inventory' %}"> Inventory </a> </li>
+      <li><a href ="{% url 'profile' %}"> Profile <a> </li>
+      </br>
+      {% if not user.is_authenticated %}
+      <li><a href ="{% url 'login' %}"> Login <a></li>
+      {% else %}
+      <li><a href ="{% url 'logout' %}"> Logout <a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
 </body>
 </html>

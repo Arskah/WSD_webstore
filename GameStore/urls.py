@@ -17,18 +17,19 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from .views import main_index
-from store.views import shop_view
-from users.views import register_view
-from store.views import inventory_view
-#from payments.views import 
+from store.views import shop_view,inventory_view
+from users.views import register_view, profile_view, editprofile_view
+#from payments.views import
 
 urlpatterns = [
-  url(r'^$', shop_view),
+  url(r'^$', shop_view, name ='shop'),
   url(r'^admin/', admin.site.urls),
   url(r'^login/$', auth_views.login, name='login'),
   url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
   url(r'^registration/$', register_view, name='registration'),
   url(r'^inventory/$', inventory_view, name='inventory'),
+  url(r'^profile/$', profile_view, name='profile'),
+  url(r'^profile/edit$', editprofile_view, name='editprofile'),
   #url(r'^login$', login_view),
   #url(r'^logout$', logout_view),
   #url(r'^api', api),
