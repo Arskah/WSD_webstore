@@ -13,4 +13,4 @@ def inventory_view(request, *args, **kwargs):
 
 def shop_view(request, *args, **kwargs):
     allGames = Game.objects.all()
-    return render(request, "shop.html")
+    return render(request, "store.html")
