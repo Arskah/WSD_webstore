@@ -132,3 +132,6 @@ STATIC_URL = '/static/'
 
 LOGGERLEVEL = logging.ERROR
 LOGPATH = "logs/debug.log"
+
+#Payment key
+PAYMENT_KEY = 'f5ccd1a3c7059487c8d08270866f1cb2'
