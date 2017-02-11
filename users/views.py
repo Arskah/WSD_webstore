@@ -2,7 +2,8 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 #from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.http import require_http_methods
-from .forms import UserForm
+from .forms import UserForm,editprofile_form
+from django.contrib.auth.forms import SetPasswordForm
 from .models import StoreUser
 
 @require_http_methods(["GET","POST"])
@@ -20,24 +21,38 @@ def register_view(request, *args, **kwargs):
 
 @require_http_methods(["GET","POST"])
 def  editprofile_view(request, *args, **kwargs):
-    storeuser = request.user
+        profile = request.user
 
-    data = {
-        "username" : storeuser.username,
-        "email" : storeuser.email,
-        "publisher" : storeuser.publisher,
-        "first_name" : storeuser.first_name,
-        "last_name" : storeuser.last_name
+        data = {
+        'username': profile.username ,
+        'email': profile.email ,
+        'first_name': profile.first_name ,
+        'last_name': profile.email ,
+        'publisher': profile.publisher,
         }
 
-    form = UserForm(request.POST or None, initial = data, instance=request.user)
-    context = { "form" : form }
+        edit_profile_form = editprofile_form(request.POST or None, instance=profile, initial = data)
 
-    if form.is_valid():
-        form.save()
-        return redirect('profile')
+        if request.method == 'POST':
+            if edit_profile_form.is_valid():
+                edit_profile_form.save()
+                return redirect('profile')
 
-    return render(request, "profile/editprofile.html", context)
+        context = {'form': editprofile_form}
+        return render(request, "profile/editprofile.html", context)
+
+def  change_password(request, *args, **kwargs):
+        profile = request.user
+        changepassword_form = SetPasswordForm(request.POST or None)
+
+        if request.method == 'POST':
+            if changepassword_form.is_valid():
+                changepassword_form.save()
+                return redirect('profile')
+
+        context = {'form': changepassword_form}
+        return render(request, "profile/changepassword.html", context)
+
 
 
 @require_http_methods(["GET"])

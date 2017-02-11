@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from .views import main_index
 from store.views import shop_view,inventory_view
-from users.views import register_view, profile_view, editprofile_view
+from users.views import register_view, profile_view, editprofile_view,change_password
 #from payments.views import
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
   url(r'^inventory/$', inventory_view, name='inventory'),
   url(r'^profile/$', profile_view, name='profile'),
   url(r'^profile/edit$', editprofile_view, name='editprofile'),
+  url(r'^profile/edit/password$', change_password, name='changepassword'),
   #url(r'^login$', login_view),
   #url(r'^logout$', logout_view),
   #url(r'^api', api),

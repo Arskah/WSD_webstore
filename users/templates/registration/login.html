@@ -1,19 +1,54 @@
 {% extends "main.html" %}
 {% block title %}Login{% endblock %}
-
+{% load staticfiles %}
 {% block content %}
 
 {% if user.is_authenticated %}
     <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
 {% else %}
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+
+  <form role="form" class="form-horizontal" method="post" >{% csrf_token %}
+      <div class="form-group">
+          {% for field in form %}
+              <div class="input-group">
+                  {% if field.html_name == "password" %}
+                  <span class="input-group-addon" style="background-color:#315ca0; color:white"><span class="glyphicon glyphicon-lock"></span></span>
+                  <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" placeholder="Password" type="password" />
+                  {% if field.errors %}
+                      <span class='text-danger'>{{ field.errors|join:'<br />' }}</span>
+                  {% endif %}
+                  {% if field.help_text %}
+                      <span class="help-block ">{{ field.help_text }}</span>
+                  {% endif %}
+                  {% else %}
+                  <span class="input-group-addon" style="background-color:#315ca0; color:white"><span class="glyphicon glyphicon-user"></span></span>
+                  <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" placeholder="Username" type="text" />
+                  {% if field.errors %}
+                      <span class='text-danger'>{{ field.errors|join:'<br />' }}</span>
+                  {% endif %}
+                  {% if field.help_text %}
+                      <span class="help-block ">{{ field.help_text }}</span>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </br>
+          {% endfor %}
+
+        {% if form.errors %}
+	             <div class="alert alert-error">
+		                <button type="button" class="close" data-dismiss="alert">×</button>
+		                    {% for field in form %}
+			                  {% if field.errors %}
+			                     <li>{{ field.label }}: {{ field.errors|striptags }}</li>
+			                  {% endif %}
+		                    {% endfor %}
+	            </div>
+         {% endif %}
+
+
+          <input type="submit" class="btn btn-primary" value="Login" />
+          <a class="btn btn-primary"  href  = "{% url 'registration' %}"> Register </a>
+      </div>
   </form>
-
-</br>
-<a href  = "{% url 'registration' %}"> Register</a>
-
 {% endif %}
 {% endblock %}

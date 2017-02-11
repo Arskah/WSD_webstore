@@ -10,9 +10,11 @@
   <tbody>
     {% for item in Games %}
       <tr>
+        <td> <img src="{{ item.image_url }}" class="img-rounded" width="50" height="50"></td>
         <td> {{ item.title }} </td>
         <td> {{ item.price }} </td>
-        <td> {{ item.rating }} </td>
+        <td> {{ item.rating }} / 5 </td>
+        <td> <a class = "btn btn-primary" href=""> Buy </a> </td>
       </tr>
     {% endfor %}
   </tbody>

@@ -12,5 +12,6 @@ def inventory_view(request, *args, **kwargs):
     return redirect("registeration/login.html")
 
 def shop_view(request, *args, **kwargs):
-    allGames = Game.objects.all()
-    return render(request, "store.html")
+    context = dict()
+    context['Games'] = Game.objects.all()
+    return render(request, "store.html", context)

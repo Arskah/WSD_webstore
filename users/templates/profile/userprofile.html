@@ -3,27 +3,26 @@
 {% block title %} My Profile {% endblock %}
 
 {% block content %}
-<div id ="profile_body">
-  {% if user.is_authenticated  %}
+    {% if user.is_authenticated  %}
+    <h3>{{storeuser.username}}</h3>
 
-<h1>{{storeuser.username}}</h1>
-<p>Email: {{storeuser.email}}</p>
-<p> Firstname : {{storeuser.first_name}}  </p>
-<p> Lastname : {{storeuser.last_name}} </p>
+    <br/>
+    <p><span style = "color: #5585d1" class="glyphicon glyphicon-user"></span> {{storeuser.first_name}}  {{storeuser.last_name}}</p>
+    <p><span style = "color: #5585d1" class="glyphicon glyphicon-envelope"></span> {{storeuser.email}}</p>
 
-{% if storeuser.publisher %}
-<p> Registered as publisher </p>
-{% else %}
-<p> You are currently not registred as a publisher </p>
-{% endif %}
+    {% if storeuser.publisher %}
+    <p><span style = "color: green" class="glyphicon glyphicon-ok"></span> Publisher </p>
+    {% else %}
+    <p><span style = "color: red" class="glyphicon glyphicon-remove"></span> Publisher </p>
+    {% endif %}
 
-<button><a href = "{% url 'editprofile' %}" >Edit profile</a></button>
+    <br />
+    <a class = "btn btn-primary"  href = "{% url 'editprofile' %}" >Edit profile</a>
+    <a class = "btn btn-danger"  href = "" >Delete profile</a>
+    {% else %}
 
-{% else %}
-
-<h1>Not logged in  !</h1>
-<a href=" {% url  'login' %}">Log in here.</a>
-
-{% endif %}
-</div>
+    <h1>Not logged in  !</h1>
+    <a class = "btn btn-primary" href=" {% url  'login' %}">Log in here.</a>
+    
+    {% endif %}
 {% endblock %}
