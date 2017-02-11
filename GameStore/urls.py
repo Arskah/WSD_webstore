@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from .views import main_index
 from store.views import shop_view,inventory_view
 from users.views import register_view, profile_view, editprofile_view,change_password
 #from payments.views import
