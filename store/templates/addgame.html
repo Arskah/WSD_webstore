@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 
 {% block title %} Add Game {% endblock %}
+{% load user_extras %}
 
 {% block content %}
     {% if user.is_authenticated %}

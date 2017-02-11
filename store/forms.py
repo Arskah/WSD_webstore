@@ -4,4 +4,4 @@ from .models import Game
 class addgame_form(ModelForm):
     class Meta:
         model = Game
-        exclude = ['Created','Raters','Ratingsum','Rating']
+        exclude = ['developer','created','raters','ratingsum','rating']

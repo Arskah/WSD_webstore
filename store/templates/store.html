@@ -1,23 +1,51 @@
 {% extends "main.html" %}
 {% block title %} Store {% endblock title %}
 {% block content %}
+
 <div>
-  <table>
+  <div class="inner-addon right-addon">
+    <i class="glyphicon glyphicon-search"></i>
+    <input type="text" class="form-control" id = "searchbar" onkeyup="searchgames()" placeholder="Search by title...">
+</div>
+
+<br />
+
+  <table style = "width: 100%" class="table-hover" id ="results">
   <thead>
     <tr class="ui-widget-header">
+      <th> </th>
+      <th> Title </th>
+      <th> Price </th>
+      <th> Rating </th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
     {% for item in Games %}
-      <tr>
+      <tr data-toggle="collapse" onclick="border(this)" data-target="#{{item.pk}}">
         <td> <img src="{{ item.image_url }}" class="img-rounded" width="50" height="50"></td>
         <td> {{ item.title }} </td>
         <td> {{ item.price }} </td>
         <td> {{ item.rating }} / 5 </td>
-        <td> <a class = "btn btn-primary" href=""> Buy </a> </td>
+        <td align = "right" style = "padding-right: 10px"> <a class = "btn btn-primary" href=""> Buy </a> </td>
       </tr>
+
+      <tr class ="gameinfo">
+        <td></td>
+        <td colspan="4">
+          <div id="{{item.pk}}" class="collapse">
+            <h4>Developer: {{item.developer}}</h4>
+            <br />
+             <h4>Description:</h4>
+            <p>{{item.description}}</p>
+          </div>
+        </td>
+      </tr>
+
     {% endfor %}
   </tbody>
   </table>
+
+
 </div>
 {% endblock content %}

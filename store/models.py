@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class Game(models.Model):
-    title = models.CharField(max_length=127,)
+    title = models.CharField(max_length=127)
     url = models.URLField(blank=True,)
     image_url = models.URLField(blank=True,)
     developer = models.ForeignKey(StoreUser, related_name = "games", related_query_name = "game", default = None)    # creator of game, games can now be queried per storeuser. (https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.related_name)

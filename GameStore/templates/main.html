@@ -16,6 +16,9 @@
   <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
+<!-- javascript -->
+<script src ="{% static 'GameStore/mainjs.js' %}"></script>
+
 <!-- Stylesheet-->
 {%load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'GameStore/mainstyle.css' %}" />
@@ -63,9 +66,9 @@
             </div>
       </div>
       <div class="well">
-          <h3> Make your addition </h3>
+          <h3> Contribute ! </h3>
         <div class="list-group">
-            <a href="#" class="list-group-item">Add Game</a>
+            <a href="{% url 'addgame' %}" class="list-group-item">Add Game</a>
           </div>
       </div>
     </div>
