@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+
+{% block title %} Add Game {% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {% for field in form %}
+                <div class="input-group">
+                    <label for="{{ field.id_for_label }}" class="control-label">{{ field.label}}</label>
+                              {{field|addcss:"form-control"}}
+                </div>
+            {% endfor %}
+            <br />
+            <input type="submit"  class="btn btn-primary" value="Submit" />
+          </div>
+    </form>
+    {% endif %}
+{% endblock %}
