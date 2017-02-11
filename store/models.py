@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from users.models import StoreUser
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 
@@ -8,7 +10,7 @@ class Game(models.Model):
     title = models.CharField(max_length=127,)
     url = models.URLField(blank=True,)
     image_url = models.URLField(blank=True,)
-    developer = models.ForeignKey(StoreUser, related_name = "games", related_query_name = "game")    # creator of game, games can now be queried per storeuser. (https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.related_name)
+    developer = models.ForeignKey(StoreUser, related_name = "games", related_query_name = "game", default = None)    # creator of game, games can now be queried per storeuser. (https://docs.djangoproject.com/en/dev/ref/models/fields/#django.db.models.ForeignKey.related_name)
     created = models.DateTimeField(default=timezone.now,)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0) #max price 999, cents possible
     description = models.CharField(max_length= 255,)
@@ -43,6 +45,13 @@ class Game(models.Model):
                 self.save()
                 return True
 
-class UserInventory():
+class UserInventory(models.Model):
     user = models.OneToOneField(StoreUser, on_delete=models.CASCADE, related_name='inventory', primary_key=True,)
-    games = models.ForeignKey(Game,)
+    games = models.ManyToManyField(Game, null = True,)
+
+@receiver(post_save, sender=StoreUser, dispatch_uid="createUserInventory")
+def createUserInventory(sender, instance, created, **kwargs):
+  if (created):
+    inventory = UserInventory()
+    inventory.user = instance
+    inventory.save()

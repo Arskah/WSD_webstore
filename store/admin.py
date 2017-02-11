@@ -3,4 +3,4 @@ from .models import Game, UserInventory
 
 # Register your models here.
 admin.site.register(Game)
-#admin.site.register(UserInventory)
+admin.site.register(UserInventory)

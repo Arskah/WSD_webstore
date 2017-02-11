@@ -1,18 +1,19 @@
 {% extends "main.html" %}
-{% block title %}Inventory{% endblock title %}
+{% block title %} Inventory {% endblock title %}
 
 {% block content %}
 <div>
   <table>
   <thead>
     <tr class="ui-widget-header">
-      
     </tr>
   </thead>
   <tbody>
     {% for item in inventoryGames %}
       <tr>
+        <td> <img src="{{ item.image_url }}" class="img-rounded" width="50" height="50"></td>
         <td> {{ item.title }} </td>
+        <td> <a class = "btn btn-primary" href=""> Play </a> </td>
       </tr>
     {% endfor %}
   </tbody>
