@@ -1,6 +1,5 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-#from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.http import require_http_methods
 from .forms import UserForm,editprofile_form
 from django.contrib.auth.forms import SetPasswordForm
@@ -62,7 +61,7 @@ def profile_view(request, *args, **kwargs):
         'storeuser' : request.user
         }
     else:
-        context = { 'authenticated' : False}
+        return redirect('/login/?next=' + request.path)
 
     return render(request, "profile/userprofile.html", context)
 

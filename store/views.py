@@ -10,7 +10,7 @@ def inventory_view(request, *args, **kwargs):
     context['inventoryGames'] = UserInventory.objects.get(user=request.user).games.all()
     return render(request, "inventory.html", context)
   else:
-    return redirect("/login/")
+    return redirect('/login/?next=' + request.path)
 
 def shop_view(request, *args, **kwargs):
     context = dict()
