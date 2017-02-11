@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from store.views import shop_view,inventory_view, addgame_view, playgame_view
+from store.views import shop_view,inventory_view, addgame_view, playgame_view,deletegame_view
 from users.views import register_view, profile_view, editprofile_view,change_password
 #from payments.views import
 
@@ -31,7 +31,9 @@ urlpatterns = [
   url(r'^profile/edit$', editprofile_view, name='editprofile'),
   url(r'^profile/edit/password$', change_password, name='changepassword'),
   url(r'^addgame$', addgame_view, name='addgame'),
-  url(r'^game/(?P<game_title>[\w-]+)', playgame_view, name='game'),
+  url(r'^game/edit/(?P<game_id>[0-9]+)$', addgame_view, name='editgame'),
+  url(r'^game/remove/(?P<game_id>[0-9]+)$', deletegame_view, name='removegame'),
+  url(r'^play/(?P<game_id>[0-9]+)', playgame_view, name='game'),
   #url(r'^login$', login_view),
   #url(r'^logout$', logout_view),
   #url(r'^api', api),

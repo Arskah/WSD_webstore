@@ -2,21 +2,83 @@
 {% block title %} Inventory {% endblock title %}
 
 {% block content %}
+
+{% if success or error%}
+        {% if error%}
+        <div class="alert alert-danger">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+              <strong>{{error }}</strong>
+          </div>
+        {% else %}
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+            <strong>{{success}}</strong>
+        </div>
+        {%endif %}
+{% endif %}
+
+
 <div>
-  <table>
+  <h3>Owned games</h3>
+  <table style = "width: 100%">
   <thead>
     <tr class="ui-widget-header">
     </tr>
   </thead>
   <tbody>
+
     {% for item in inventoryGames %}
+    {%if not item.developer == user%}
       <tr>
         <td> <img src="{{ item.image_url }}" class="img-rounded" width="50" height="50"></td>
         <td> {{ item.title }} </td>
-        <td> <a class = "btn btn-primary" href=""> Play </a> </td>
+        <td align = "right" style = "padding-right: 10px"> <a class = "btn btn-success" href="{% url 'game' item.id %}"> Play </a> </td>
       </tr>
+      {% endif %}
     {% endfor %}
   </tbody>
   </table>
+
+{%if user.developer == true %}
+<br />
+<h3>Games by you!</h3>
+  <table style = "width: 100%" class="table-hover" >
+  <thead>
+    <tr class="ui-widget-header">
+    </tr>
+  </thead>
+  <tbody>
+{% for item in inventoryGames %}
+  {%if item.developer == user%}
+    <tr data-toggle="collapse" onclick="border(this)" data-target="#{{item.pk}}">
+      <td> <img src="{{ item.image_url }}" class="img-rounded" width="50" height="50"></td>
+      <td> {{ item.title }} </td>
+      <td align = "right" style = "padding-right: 10px">
+          <a class = "btn btn-success" href="{% url 'game' item.id %}"> Play </a>
+          <a class = "btn btn-warning" href="{% url 'editgame' item.id%}"> Edit </a>
+          <a class = "btn btn-danger" href = "{% url 'removegame' item.id %}"> Remove </a>
+      </td>
+    </tr>
+
+    <tr class ="gameinfo">
+      <td></td>
+      <td colspan="4">
+        <div id="{{item.pk}}" class="collapse">
+          <br />
+          <p>Description: {{item.description}}</p>
+          <p>Game rating: {{item.rating}} / 5 </p>
+          <br />
+          <p>This game has been bought {{ item.inventories.all.count|add:"-1" }}  times !</p>
+        </div>
+      </td>
+    </tr>
+    {% endif %}
+  {% endfor %}
+</tbody>
+</table>
+{% endif %}
+
+
+
 </div>
 {% endblock content %}

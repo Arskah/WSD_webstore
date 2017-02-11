@@ -51,10 +51,10 @@
 .right-addon input { padding-right: 30px; }
 
 .gameinfo {
-  background-color : #f4f5f7;
+  background-color : white;
   padding: 20px;
 }
 
 .gameinfo:hover td{
-  background-color : #f4f5f7;
+  background-color : white;
 }

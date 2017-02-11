@@ -47,7 +47,8 @@ class Game(models.Model):
 
 class UserInventory(models.Model):
     user = models.OneToOneField(StoreUser, on_delete=models.CASCADE, related_name='inventory', primary_key=True,)
-    games = models.ManyToManyField(Game,)
+    games = models.ManyToManyField(Game, related_name = "inventories")
+
 
 @receiver(post_save, sender=StoreUser, dispatch_uid="createUserInventory")
 def createUserInventory(sender, instance, created, **kwargs):

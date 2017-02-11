@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+
+{% block title %} {{game.title }}{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+    {%if game %}
+    <div class="embed-responsive embed-responsive-4by3">
+        <iframe class="embed-responsive-item" src="{{ game.url }}"></iframe>
+    </div>
+    {%else %}
+    <p>{{ error }}</p>
+    {% endif %}
+    {% endif %}
+{% endblock %}
