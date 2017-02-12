@@ -26,7 +26,14 @@ def buy_view(request, *args, **kwargs):
         resp = HttpResponse('{"error":"Game not found!"}')
         resp.status_code = 404
         return resp
-      
+
+      # if user has the game, buy view of game not allowed
+      try:
+        UserInventory.objects.get(user = request.user).games.get(pk=idx)
+        return redirect('/')
+      except:
+        pass
+
       sid = settings.SELLER_ID
       pment = create_payment(request.user, game, sid)
       context['pid'] = pment.id

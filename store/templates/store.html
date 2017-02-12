@@ -27,7 +27,10 @@
         <td> {{ item.title }} </td>
         <td> {{ item.price }} </td>
         <td> {{ item.rating }} / 5 </td>
-        <td align = "right" style = "padding-right: 10px"> <a class = "btn btn-primary" href="/game/buy/{{ item.id }}"> Buy </a> </td>
+        {% if item in OwnedGames %}
+        <td align = "right" style = "padding-right: 10px"> <a class = "btn btn-success" href="{% url 'game' item.id %}"> Play </a> </td>        {% else %}
+        <td align = "right" style = "padding-right: 10px"> <a class = "btn btn-primary" href="{% url 'buy' item.id %}"> Buy </a> </td>
+        {% endif %}
       </tr>
 
       <tr class ="gameinfo">
