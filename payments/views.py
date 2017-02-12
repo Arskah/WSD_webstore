@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -9,10 +9,8 @@ from hashlib import md5
 from decimal import Decimal
 
 from django.conf import settings
-from store.models import Game
+from store.models import Game, UserInventory
 from payments.models import Payment
-
-TWOPLACES = Decimal(10) ** -2
 
 # Create your views here.
 def buy_view(request, *args, **kwargs):
@@ -30,11 +28,11 @@ def buy_view(request, *args, **kwargs):
         return resp
       
       sid = settings.SELLER_ID
-      pment = create_payment(request.user, game.price, sid)
+      pment = create_payment(request.user, game, sid)
       context['pid'] = pment.id
       context['sid'] = sid
       context['amount'] = pment.transaction
-      context['checksum'] = pment.checksum
+      context['checksum'] = hash(pment.id, sid, pment.transaction)
       context['success_url'] = settings.SUCCESS_URL
       context['error_url'] = settings.ERROR_URL
       context['cancel_url'] = settings.CANCEL_URL
@@ -42,37 +40,66 @@ def buy_view(request, *args, **kwargs):
 
       return render(request, 'buy.html', context)
     else:
-      return redirect('/login/?next=' + request.path)
+      return redirect('/')
+  else:
+    return redirect('/login/?next=' + request.path)
 
-def create_payment(user, price, sid):
+def create_payment(user, game, sid):
   pment = Payment()
   pment.user = user
-  pment.transaction = price
-  pment.save()
-  pment.checksum = hash(pment.id, sid, price)
+  pment.transaction = game.price
+  pment.game = game
   pment.save()
   return pment
 
 @require_http_methods(["GET"])
 def success(request, *args, **kwargs):
-  
-  context = dict()
-  context['status'] = 'YES'
-  return render(request, 'test.html', context)
+  pid = request.GET["pid"]
+  ref = request.GET["ref"]
+  result = request.GET["result"]
+  if request.GET["checksum"] == hash2(pid, ref, result):
+    # Set status for payment
+    pment = Payment.objects.get(pk = pid)
+    pment.set_success(ref)
+
+    # Add purchase for user
+    inventory = UserInventory.objects.get(user = pment.user)
+    inventory.games.add(pment.game)
+
+    #redirect to game page
+    return redirect('/')
+  return HttpResponseBadRequest()
 
 @require_http_methods(["GET"])
 def cancel(request, *args, **kwargs):
-  context = dict()
-  context['status'] = 'CANCEL'
-  return render(request, 'test.html', context)
+  pid = request.GET["pid"]
+  ref = request.GET["ref"]
+  result = request.GET["result"]
+  if request.GET["checksum"] == hash2(pid, ref, result):
+    pment = Payment.objects.get(pk = pid)
+    pment.set_cancel(ref)
+
+    #give cancel notyfication
+    #redirect to purchase screen
+    return redirect('/')
+  return HttpResponseBadRequest()
 
 @require_http_methods(["GET"])
 def error(request, *args, **kwargs):
-  context = dict()
-  context['status'] = 'NO'
-  return render(request, 'test.html', context)
+  pid = request.GET["pid"]
+  ref = request.GET["ref"]
+  result = request.GET["result"]
+  if request.GET["checksum"] == hash2(pid, ref, result):
+    pment = Payment.objects.get(pk = pid)
+    pment.set_error(ref)
+
+    #todo: add error message
+    #redirect to store
+    return redirect('/')
+  return HttpResponseBadRequest()
 
 def hash(pid, sid, amount):
-  checksumstr = "pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, settings.PAYMENT_KEY)
-  m = md5(checksumstr.encode("ascii"))
-  return m.hexdigest()
+  return md5("pid={}&sid={}&amount={}&token={}".format(pid, sid, amount, settings.PAYMENT_KEY).encode("ascii")).hexdigest()
+
+def hash2(pid, ref, result):
+  return md5("pid={}&ref={}&result={}&token={}".format(pid, ref, result, settings.PAYMENT_KEY).encode("ascii")).hexdigest()
