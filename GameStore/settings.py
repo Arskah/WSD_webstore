@@ -133,5 +133,10 @@ STATIC_URL = '/static/'
 LOGGERLEVEL = logging.ERROR
 LOGPATH = "logs/debug.log"
 
-#Payment key
+#Payment system
+SELLER_ID = 'marshall'
 PAYMENT_KEY = 'f5ccd1a3c7059487c8d08270866f1cb2'
+PAYMENT_URL = 'http://payments.webcourse.niksula.hut.fi/pay/'
+SUCCESS_URL = 'http://localhost:8000/payments/success/'
+CANCEL_URL = 'http://localhost:8000/payments/cancel/'
+ERROR_URL = 'http://localhost:8000/payments/error/'

@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}
+
+<h1> {{ game.title }} </h1>
+<img src="{{ game.image_url }}" />
+<div class="row">
+  <label>Price: {{ game.price }}</label>
+
+</div>
+<form action="{{ pay_url }}" method="POST">
+  <input type="hidden" name="pid" value="{{ pid }}" />
+  <input type="hidden" name="sid" value="{{ sid }}" />
+  <input type="hidden" name="success_url"
+  value="{{ success_url }}" />
+  <input type="hidden" name="cancel_url"
+  value="{{ cancel_url }}" />
+  <input type="hidden" name="error_url"
+  value="{{ error_url }}" />
+  <input type="hidden" name="checksum"
+  value="{{ checksum }}" />
+  <input type="hidden" name="amount"
+  value="{{ amount }}" />
+  <input type="submit" value="Buy!"/>
+<!--  <input type="submit" value="Buy with wallet"> -->
+</form>
+
+{% endblock content %}

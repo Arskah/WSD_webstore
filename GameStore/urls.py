@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from store.views import shop_view,inventory_view, addgame_view, playgame_view,deletegame_view
 from users.views import register_view, profile_view, editprofile_view,change_password
-#from payments.views import
+from payments.views import buy_view, success, cancel, error
 
 urlpatterns = [
   url(r'^$', shop_view, name ='shop'),
@@ -34,7 +34,8 @@ urlpatterns = [
   url(r'^game/edit/(?P<game_id>[0-9]+)$', addgame_view, name='editgame'),
   url(r'^game/remove/(?P<game_id>[0-9]+)$', deletegame_view, name='removegame'),
   url(r'^play/(?P<game_id>[0-9]+)', playgame_view, name='game'),
-  #url(r'^login$', login_view),
-  #url(r'^logout$', logout_view),
-  #url(r'^api', api),
+  url(r'^game/buy/(?P<idx>\d+)$', buy_view, name='buy'),
+  url(r'^payments/success/$', success, name='success'),
+  url(r'^payments/cancel/$', cancel, name='cancel'),
+  url(r'^payments/error/$', error, name='error'),
 ]

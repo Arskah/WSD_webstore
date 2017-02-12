@@ -25,7 +25,7 @@ class Game(models.Model):
     ('BOARD', "Board"),
     ('DRIVING', "Driving"),
     ('STRATEGY',"Strategy"),
-    ('HORROR',"Horror")
+    ('HORROR',"Horror"),
     ]
 
     category = models.CharField(max_length = 12, choices = CATEGORY_CHOISES)
