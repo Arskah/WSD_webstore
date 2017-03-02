@@ -14,11 +14,10 @@ def inventory_view(request, *args, **kwargs):
 
 def shop_view(request, *args, **kwargs):
     context = dict()
-    context['Games'] = Game.objects.all()
+    if Game.objects.all().exists():
+        context['Games'] = Game.objects.all()
     if request.user.is_authenticated():
-      context['OwnedGames'] = UserInventory.objects.get(user=request.user).games.all()
-    else:
-      context['OwnedGames'] = []
+        context['OwnedGames'] = UserInventory.objects.get(user=request.user).games.all()
     return render(request, "store.html", context)
 
 def addgame_view(request, game_id = None):
