@@ -1,6 +1,7 @@
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
+from django.contrib.auth.decorators import login_required
 from store.models import Game,UserInventory
 from .forms import addgame_form
 
@@ -20,7 +21,7 @@ def shop_view(request, *args, **kwargs):
         context['OwnedGames'] = UserInventory.objects.get(user=request.user).games.all()
     return render(request, "store.html", context)
 
-@login_required()
+@login_required(login_url='/login/')
 def addgame_view(request, game_id = None):
     if(game_id == None):
         addgame = addgame_form(request.POST or None)
