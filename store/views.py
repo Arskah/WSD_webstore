@@ -20,6 +20,7 @@ def shop_view(request, *args, **kwargs):
         context['OwnedGames'] = UserInventory.objects.get(user=request.user).games.all()
     return render(request, "store.html", context)
 
+@login_required()
 def addgame_view(request, game_id = None):
     if(game_id == None):
         addgame = addgame_form(request.POST or None)
